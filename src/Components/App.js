@@ -4,8 +4,8 @@ import { NavLink, Redirect, Route, Switch } from "react-router-dom";
 import HomePage from "../views/HomePage";
 import MoviesPage from "../views/movies/MoviesPage";
 import MovieDetailsPage from "../views/moviesId/MovieDetailsPage";
-// import Cast from "../views/moviesId/cast/Cast";
-// import Reviews from "../views/moviesId/reviews/Reviews";
+import Cast from "../views/moviesId/cast/Cast";
+import Reviews from "../views/moviesId/reviews/Reviews";
 import NotFound from "../views/NotFound";
 
 const App = () => (
@@ -36,9 +36,10 @@ const App = () => (
       <Route exact path="/" component={HomePage} />
       <Route exact path="/movies" component={MoviesPage} />
       <Route exact path="/movies/:movieId" component={MovieDetailsPage} />
-
+      <Route exact path="/movies/:movieId/cast" component={Cast} />
+      <Route exact path="/movies/:movieId/reviews" component={Reviews} />
       <Route component={NotFound} />
-      {/* <Redirect to="/" /> */}
+      <Redirect to="/" />
     </Switch>
   </div>
 );

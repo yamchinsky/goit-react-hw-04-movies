@@ -20,23 +20,19 @@ class Cast extends Component {
   }
 
   render() {
-    const castName = this.state.cast.map((item) => item.name);
-    const castProfile = this.state.cast.map((item) => item.profile_path);
-
-    const castCharacter = this.state.cast.map((item) => item.character);
-
-    const castId = this.state.cast.map((item) => item.id);
-    console.log(castName);
-
-    return (
-      <div>
-        <li key={castId}>
-          {castName}
-          <p>{castCharacter}</p>
-          <img src={`${siteName}${castProfile}`} alt="" />
-        </li>
-      </div>
+    const castObj = this.state.cast.map(
+      ({ name, id, profile_path, character }) => (
+        <ul key={id}>
+          <li>{profile_path}</li>
+          <li>{name}</li>
+          <li>{character}</li>
+        </ul>
+      )
     );
+
+    console.log();
+
+    return <div>{castObj}</div>;
   }
 }
 export default Cast;
