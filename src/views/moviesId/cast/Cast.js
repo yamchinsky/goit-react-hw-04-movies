@@ -23,7 +23,7 @@ class Cast extends Component {
     const castObj = this.state.cast.map(
       ({ name, id, profile_path, character }) => (
         <ul key={id}>
-          <li>{profile_path}</li>
+          <img src={`${siteName}${profile_path}`} alt="" width="100" />
           <li>{name}</li>
           <li>{character}</li>
         </ul>

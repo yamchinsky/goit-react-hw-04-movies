@@ -33,8 +33,8 @@ class MovieDetailsPage extends Component {
     console.log(this.props.match.path);
     return (
       <div>
-        <img src={`${siteName}${this.state.poster_path}`} alt="" />
-        <img src={this.state.backdrop_path} alt="" width="350" />
+        <img src={`${siteName}${this.state.poster_path}`} alt="" width="200" />
+
         <h1>{this.state.title}</h1>
         <p>{this.state.vote_average}</p>
         <ul>{genres}</ul>
