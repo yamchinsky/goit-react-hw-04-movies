@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { Component } from "react";
 import { NavLink, Route } from "react-router-dom";
+import MovieList from "../../Components/MovieList/MovieList";
 import Cast from "./cast/Cast";
 import Reviews from "./reviews/Reviews";
 
@@ -26,19 +27,17 @@ class MovieDetailsPage extends Component {
   }
 
   render() {
-    const genres = this.state.genres.map(({ id, name }) => (
-      <li key={id}>{name}</li>
-    ));
-
-    console.log(this.props.match.url);
-    console.log(this.props.match.path);
+    // console.log(this.state.data.genres);
     return (
       <div>
-        <img src={`${siteName}${this.state.poster_path}`} alt="" width="200" />
-
-        <h1>{this.state.title}</h1>
-        <p>{this.state.vote_average}</p>
-        <ul>{genres}</ul>
+        <MovieList
+          movieId={this.state.id}
+          movieName={this.state.name}
+          moviePoster={this.state.poster_path}
+          movieGenres={this.state.genres}
+          movieTitle={this.state.title}
+          movieVotes={this.state.vote_averag}
+        />
         <h3>Additional information</h3>
         <ul>
           <li>
@@ -60,7 +59,6 @@ class MovieDetailsPage extends Component {
             </li>
           </li>
         </ul>
-
         <Route
           path={`${this.props.match.path}/cast`}
           render={(props) => <Cast {...props} />}
