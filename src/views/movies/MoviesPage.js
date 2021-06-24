@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { Route, withRouter } from "react-router-dom";
 
 class MoviesPage extends Component {
   static propTypes = {
@@ -53,4 +54,4 @@ class MoviesPage extends Component {
   }
 }
 
-export default MoviesPage;
+export default withRouter(MoviesPage);
