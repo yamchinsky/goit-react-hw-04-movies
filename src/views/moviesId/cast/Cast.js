@@ -25,7 +25,7 @@ class Cast extends Component {
         <ul key={id}>
           <img src={`${siteName}${profile_path}`} alt="" width="100" />
           <li>{name}</li>
-          <li>{character}</li>
+          <p>{character}</p>
         </ul>
       )
     );

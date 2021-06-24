@@ -48,6 +48,15 @@ class MovieDetailsPage extends Component {
             >
               Cast
             </NavLink>
+            <li>
+              <NavLink
+                to={{ pathname: `${this.props.match.url}/reviews` }}
+                className="NavLink"
+                activeClassName="NavLink--active"
+              >
+                Reviews
+              </NavLink>
+            </li>
           </li>
         </ul>
 
