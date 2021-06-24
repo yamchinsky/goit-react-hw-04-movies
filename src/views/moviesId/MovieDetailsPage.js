@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { Component } from "react";
 import { NavLink, Route } from "react-router-dom";
 import Cast from "./cast/Cast";
+import Reviews from "./reviews/Reviews";
 
 const siteName = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2";
 
@@ -63,6 +64,11 @@ class MovieDetailsPage extends Component {
         <Route
           path={`${this.props.match.path}/cast`}
           render={(props) => <Cast {...props} />}
+        />
+
+        <Route
+          path={`${this.props.match.path}/reviews`}
+          render={(props) => <Reviews {...props} />}
         />
       </div>
     );

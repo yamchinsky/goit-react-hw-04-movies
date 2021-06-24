@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-const siteName = "https://image.tmdb.org/t/p/w500/";
-
 class Reviews extends Component {
   state = {
     reviews: [],
@@ -24,7 +22,12 @@ class Reviews extends Component {
         <p>{content}</p>
       </li>
     ));
-    return <div>{reviewsObj}</div>;
+
+    if ({ reviewsObj }) {
+      return <div>{reviewsObj}</div>;
+    } else {
+      ("We don't have any reviews for this movie yet");
+    }
   }
 }
 
