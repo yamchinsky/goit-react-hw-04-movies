@@ -1,54 +1,59 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Route, withRouter } from "react-router-dom";
+import { Link, Route, withRouter } from "react-router-dom";
+import SearchForm from "../../Components/SearchForm/SearchForm";
+import axios from "axios";
 
 class MoviesPage extends Component {
-  static propTypes = {
-    onSubmit: PropTypes.func.isRequired,
-  };
-
-  state = {
-    name: "",
-  };
-
-  handleChange = (e) => {
-    const { name, value } = e.currentTarget;
-    this.setState({ [name]: value });
-  };
-
-  handleSubmit = (e) => {
-    e.preventDefault();
-
-    this.props.onSubmit(this.state.name.trim());
-    if (!this.state.name) {
-      alert("Поле не может быть пустым!");
-      return;
+  state = { searchData: [] };
+  componentDidMount() {
+    const currentQuery = new URLSearchParams(this.props.location.search).get(
+      "query"
+    );
+    if (currentQuery) {
+      this.searchMovies();
     }
-    this.reset();
+  }
+
+  componentDidUpdate(prevProps) {
+    const currentQuery = new URLSearchParams(this.props.location.search).get(
+      "query"
+    );
+    const query = new URLSearchParams(prevProps.location.search).get("query");
+    if (currentQuery !== query) {
+      this.searchMovies();
+    }
+  }
+
+  searchMovies = () => {
+    const query = new URLSearchParams(this.props.location.search).get("query");
+
+    const response = axios
+      .get(
+        `https://api.themoviedb.org/3/search/movie?api_key=14cad650e98ee4d1aaf3de321f081384&language=en-US&page=1&include_adult=false&query=${query}`
+      )
+      .then((response) => this.setState({ searchData: response.data.results }))
+      .catch((error) => console.log(error));
+    console.log(this.state);
   };
 
-  reset = () => {
-    this.setState({ name: "" });
+  formSubmitHandler = (query) => {
+    this.props.history.push(`/movies?query=${query}`);
   };
-
   render() {
+    const searchDataObj = this.state.searchData.map((item) => (
+      <ul key={item.id}>
+        <li>
+          <Link to={`/movies/${item.id}`}>{item.title}</Link>
+        </li>
+      </ul>
+    ));
+
+    console.log(this.state.searchData);
     return (
       <div>
-        <form className="SearchForm" onSubmit={this.handleSubmit}>
-          <input
-            className="SearchForm-input"
-            name="name"
-            onChange={this.handleChange}
-            value={this.state.name}
-            type="text"
-            autoComplete="off"
-            autoFocus
-            placeholder="Search your movie here"
-          />
-          <button type="submit" className="SearchForm-button">
-            <span className="SearchForm-button-label">Search</span>
-          </button>
-        </form>
+        <SearchForm onSubmit={this.formSubmitHandler} />
+        <div>{searchDataObj}</div>
       </div>
     );
   }
