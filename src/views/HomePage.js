@@ -17,9 +17,9 @@ class HomePage extends Component {
   }
 
   render() {
-    // console.log(this.props.location);
+    console.log(this.props.location);
     const { location } = this.props;
-    console.log(location);
+
     return (
       <div>
         <h1 className="homepage-header">Trending today</h1>

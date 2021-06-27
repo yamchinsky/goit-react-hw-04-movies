@@ -14,6 +14,9 @@ code {
 
 body {
   background-image: url(./img//UA-en-20210607-popsignuptwoweeks-perspective_alpha_website_small.jpg);
+max-width: 2300px;
+max-height: 1800px;
+
 }
 
 .homepage-header {

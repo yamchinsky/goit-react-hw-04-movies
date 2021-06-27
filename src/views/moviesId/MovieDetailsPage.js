@@ -36,10 +36,8 @@ class MovieDetailsPage extends Component {
     history.push(routes.state);
   };
 
-  onAddionalLinkClick = () => {};
-
   render() {
-    console.log(this.props.match.path);
+    console.log(this.props.location.state);
     return (
       <div className="movie-items-container">
         <button
@@ -68,6 +66,7 @@ class MovieDetailsPage extends Component {
               <NavLink
                 to={{
                   pathname: `${this.props.match.url}/cast`,
+                  state: { from: this.props.location },
                 }}
               >
                 Cast
@@ -80,6 +79,7 @@ class MovieDetailsPage extends Component {
               <NavLink
                 to={{
                   pathname: `${this.props.match.url}/reviews`,
+                  state: { from: this.props.location },
                 }}
               >
                 Reviews

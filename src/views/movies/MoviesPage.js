@@ -41,10 +41,15 @@ class MoviesPage extends Component {
     this.props.history.push(`/movies?query=${query}`);
   };
   render() {
+    const { location } = this.props;
     const searchDataObj = this.state.searchData.map((item) => (
       <ul key={item.id}>
         <li className="found-data-item">
-          <Link to={`/movies/${item.id}`}>{item.title}</Link>
+          <Link
+            to={{ pathname: `/movies/${item.id}`, state: { from: location } }}
+          >
+            {item.title}
+          </Link>
         </li>
       </ul>
     ));
