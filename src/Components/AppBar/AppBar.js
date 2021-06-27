@@ -1,13 +1,14 @@
-import React from "react";
-import { NavLink, Redirect, Route, Switch } from "react-router-dom";
-import routes from "../../routes";
-import Navigation from "../Navigation/Navigation";
+import React, { lazy, Suspense } from "react";
+
+const Navigation = lazy(() => import("../Navigation/Navigation"));
 
 const AppBar = () => {
   return (
-    <header className="AppBar">
-      <Navigation />
-    </header>
+    <Suspense fallback={<div>Loading...</div>}>
+      <header className="AppBar">
+        <Navigation />
+      </header>
+    </Suspense>
   );
 };
 

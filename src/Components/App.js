@@ -1,18 +1,25 @@
 import AppBar from "./AppBar/AppBar";
 import { Redirect, Route, Switch } from "react-router-dom";
-import HomePage from "../views/HomePage";
-import MoviesPage from "../views/movies/MoviesPage";
-import MovieDetailsPage from "../views/moviesId/MovieDetailsPage";
-import Cast from "../views/moviesId/cast/Cast";
-import Reviews from "../views/moviesId/reviews/Reviews";
-import NotFound from "../views/NotFound";
 import routes from "../routes";
-import React, { Component } from "react";
+import React, { lazy, Suspense, Component } from "react";
+// import Cast from "../views/moviesId/cast/Cast";
+// import Reviews from "../views/moviesId/reviews/Reviews";
+
+const HomePage = lazy(() => import("../views/HomePage"));
+// import HomePage from "../views/HomePage";
+const MoviesPage = lazy(() => import("../views/movies/MoviesPage"));
+// import MoviesPage from "../views/movies/MoviesPage";
+const MovieDetailsPage = lazy(() =>
+  import("../views/moviesId/MovieDetailsPage")
+);
+// import MovieDetailsPage from "../views/moviesId/MovieDetailsPage";
+const NotFound = lazy(() => import("../views/NotFound"));
+// import NotFound from "../views/NotFound";
 
 class App extends Component {
   render() {
     return (
-      <div>
+      <Suspense fallback={<div>Loading...</div>}>
         <AppBar />
         <Switch>
           <Route exact path={routes.home} component={HomePage} />
@@ -22,17 +29,13 @@ class App extends Component {
             component={MoviesPage}
             onSubmit={this.formSubmitHandler}
           />
-          <Route
-            exact
-            path={routes.movieDetails}
-            component={MovieDetailsPage}
-          />
-          <Route exact path={routes.movieCasts} component={Cast} />
-          <Route exact path={routes.movieReviews} component={Reviews} />
+          <Route path={routes.movieDetails} component={MovieDetailsPage} />
+          {/* <Route exact path={routes.movieCast} component={Cast} />
+          <Route exact path={routes.movieReviews} component={Reviews} /> */}
           <Route component={NotFound} />
           <Redirect to="/" />
         </Switch>
-      </div>
+      </Suspense>
     );
   }
 }

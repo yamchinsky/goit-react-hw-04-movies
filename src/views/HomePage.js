@@ -17,15 +17,24 @@ class HomePage extends Component {
   }
 
   render() {
-    console.log(this.props.match.url);
+    // console.log(this.props.location);
+    const { location } = this.props;
+    console.log(location);
     return (
       <div>
-        <h1>Trending today</h1>
+        <h1 className="homepage-header">Trending today</h1>
 
-        <ul>
+        <ul className="homepage-header-menu">
           {this.state.trendings.map((trending) => (
-            <li key={trending.id}>
-              <Link to={`/movies/${trending.id}`}>{trending.title}</Link>
+            <li key={trending.id} className="homepage-header-menu-item">
+              <Link
+                to={{
+                  pathname: `/movies/${trending.id}`,
+                  state: { from: location },
+                }}
+              >
+                {trending.title}
+              </Link>
             </li>
           ))}
         </ul>

@@ -12,10 +12,137 @@ code {
     monospace;
 }
 
-.NavLink {
-  color: blue;
+body {
+  background-image: url(./img//UA-en-20210607-popsignuptwoweeks-perspective_alpha_website_small.jpg);
 }
 
-.NavLink--active {
-  color: pink;
+.homepage-header {
+  margin-left: 30px;
+  color: white;
+}
+.homepage-header-menu {
+  list-style: none;
+}
+.homepage-header-menu-item {
+  list-style: none;
+  color: white;
+  padding-bottom: 10px;
+}
+
+.navigation-menu {
+  display: flex;
+  list-style: none;
+}
+.navigation-menu-item {
+  font-size: large;
+  padding-right: 70px;
+}
+.movie-items-container {
+  margin-left: 20px;
+}
+
+.button-back {
+  margin-left: 30px;
+  padding: 5px;
+  border-radius: 14px;
+  border-color: crimson;
+  background-color: rgb(107, 156, 189);
+  margin-bottom: 20px;
+}
+
+.movie-item {
+  color: white;
+  list-style: none;
+}
+
+.additional-info-header {
+  color: white;
+}
+
+.additional-info-menu {
+  color: white;
+  list-style: none;
+}
+
+.additional-info-link-cast,
+.additional-info-link-reviews {
+  list-style: none;
+
+  margin-right: 90px;
+}
+
+.additional-menu-container {
+  display: flex;
+  list-style: none;
+}
+.cast-menu-item {
+  color: white;
+  list-style: none;
+}
+
+.cast-menu-character,
+.cast-menu-name {
+  color: white;
+}
+.SearchForm {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 250px;
+  background-color: #fff;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-left: 20px;
+}
+.SearchForm-button {
+  display: inline-block;
+  width: 48px;
+  height: 48px;
+  border: 0;
+  background-image: url("https://image.flaticon.com/icons/svg/149/149852.svg");
+  background-size: 40%;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.6;
+  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  outline: none;
+}
+.SearchForm-button:hover {
+  opacity: 1;
+}
+.SearchForm-button-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+  border: 0;
+}
+.SearchForm-input {
+  display: inline-block;
+  width: 100%;
+  font: inherit;
+  font-size: 20px;
+  border: none;
+  outline: none;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+.SearchForm-input::placeholder {
+  font: inherit;
+  font-size: 18px;
+}
+
+.found-data-item {
+  list-style: none;
+  color: #fff;
+}
+
+.review-info-item {
+  color: #fff;
+  list-style: none;
 }

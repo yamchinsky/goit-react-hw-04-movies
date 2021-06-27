@@ -1,8 +1,9 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { Link, Route, withRouter } from "react-router-dom";
-import SearchForm from "../../Components/SearchForm/SearchForm";
+import React, { lazy, Suspense, Component } from "react";
+import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
+
+const SearchForm = lazy(() => import("../../Components/SearchForm/SearchForm"));
+// import SearchForm from "../../Components/SearchForm/SearchForm";
 
 class MoviesPage extends Component {
   state = { searchData: [] };
@@ -28,13 +29,12 @@ class MoviesPage extends Component {
   searchMovies = () => {
     const query = new URLSearchParams(this.props.location.search).get("query");
 
-    const response = axios
+    axios
       .get(
         `https://api.themoviedb.org/3/search/movie?api_key=14cad650e98ee4d1aaf3de321f081384&language=en-US&page=1&include_adult=false&query=${query}`
       )
       .then((response) => this.setState({ searchData: response.data.results }))
       .catch((error) => console.log(error));
-    console.log(this.state);
   };
 
   formSubmitHandler = (query) => {
@@ -43,7 +43,7 @@ class MoviesPage extends Component {
   render() {
     const searchDataObj = this.state.searchData.map((item) => (
       <ul key={item.id}>
-        <li>
+        <li className="found-data-item">
           <Link to={`/movies/${item.id}`}>{item.title}</Link>
         </li>
       </ul>
@@ -51,10 +51,10 @@ class MoviesPage extends Component {
 
     console.log(this.state.searchData);
     return (
-      <div>
+      <Suspense fallback={<div>Loading...</div>}>
         <SearchForm onSubmit={this.formSubmitHandler} />
         <div>{searchDataObj}</div>
-      </div>
+      </Suspense>
     );
   }
 }

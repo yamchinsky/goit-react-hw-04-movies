@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React, { Suspense, Component } from "react";
+import PropTypes from "prop-types";
 import axios from "axios";
 
 class Reviews extends Component {
@@ -17,18 +18,23 @@ class Reviews extends Component {
   }
 
   render() {
-    const reviewsObj = this.state.reviews.map(({ content, id }) => (
-      <li key={id}>
-        <p>{content}</p>
-      </li>
-    ));
-
-    if ({ reviewsObj }) {
-      return <div>{reviewsObj}</div>;
-    } else {
-      ("We don't have any reviews for this movie yet");
-    }
+    return (
+      <Suspense fallback={<div>Loading...</div>}>
+        <ul>
+          {this.state.reviews.map(({ content, id }) => (
+            <li key={id}>
+              <p className="review-info-item">{content}</p>
+            </li>
+          ))}
+        </ul>
+      </Suspense>
+    );
   }
 }
+
+Reviews.PropTypes = {
+  content: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+};
 
 export default Reviews;

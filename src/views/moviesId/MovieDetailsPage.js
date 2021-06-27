@@ -1,11 +1,14 @@
 import axios from "axios";
-import React, { Component } from "react";
-import { NavLink, Route } from "react-router-dom";
-import MovieList from "../../Components/MovieList/MovieList";
-import Cast from "./cast/Cast";
-import Reviews from "./reviews/Reviews";
+import { NavLink, Route, Switch, withRouter } from "react-router-dom";
+import routes from "../../../src/routes";
+import React, { lazy, Suspense, Component } from "react";
 
-const siteName = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2";
+const Cast = lazy(() => import("./cast/Cast"));
+// import Cast from "./cast/Cast";
+const MovieList = lazy(() => import("../../Components/MovieList/MovieList"));
+// import MovieList from "../../Components/MovieList/MovieList";
+const Reviews = lazy(() => import("./reviews/Reviews"));
+// import Reviews from "./reviews/Reviews";
 
 class MovieDetailsPage extends Component {
   state = {
@@ -25,52 +28,80 @@ class MovieDetailsPage extends Component {
 
     this.setState({ ...response.data });
   }
+  handleGoBack = () => {
+    const { location, history } = this.props;
+    if (location.state && location.state.from) {
+      return history.push(location.state.from);
+    }
+    history.push(routes.state);
+  };
+
+  onAddionalLinkClick = () => {};
 
   render() {
-    // console.log(this.state.data.genres);
+    console.log(this.props.match.path);
     return (
-      <div>
+      <div className="movie-items-container">
+        <button
+          className="button-back"
+          type="button"
+          onClick={this.handleGoBack}
+        >
+          back
+        </button>
+
         <MovieList
           movieId={this.state.id}
           movieName={this.state.name}
           moviePoster={this.state.poster_path}
           movieGenres={this.state.genres}
           movieTitle={this.state.title}
-          movieVotes={this.state.vote_averag}
+          movieVotes={this.state.vote_averagе}
         />
-        <h3>Additional information</h3>
-        <ul>
-          <li>
-            <NavLink
-              to={{ pathname: `${this.props.match.url}/cast` }}
-              className="NavLink"
-              activeClassName="NavLink--active"
+        <h3 className="additional-info-header">Additional information</h3>
+        <div className="additional-info-menu">
+          <ul className="additional-menu-container">
+            <li
+              className="additional-info-link-cast"
+              key={this.props.match.movieId}
             >
-              Cast
-            </NavLink>
-            <li>
               <NavLink
-                to={{ pathname: `${this.props.match.url}/reviews` }}
-                className="NavLink"
-                activeClassName="NavLink--active"
+                to={{
+                  pathname: `${this.props.match.url}/cast`,
+                }}
+              >
+                Cast
+              </NavLink>
+            </li>
+            <li
+              className="additional-info-link-reviews"
+              key={this.props.match.movieId}
+            >
+              <NavLink
+                to={{
+                  pathname: `${this.props.match.url}/reviews`,
+                }}
               >
                 Reviews
               </NavLink>
             </li>
-          </li>
-        </ul>
-        <Route
-          path={`${this.props.match.path}/cast`}
-          render={(props) => <Cast {...props} />}
-        />
-
-        <Route
-          path={`${this.props.match.path}/reviews`}
-          render={(props) => <Reviews {...props} />}
-        />
+          </ul>
+          <Suspense fallback={<h2>Loading inline info...</h2>}>
+            <Switch>
+              <Route
+                path={`${this.props.match.path}/cast`}
+                render={(props) => <Cast {...props} />}
+              />
+              <Route
+                path={`${this.props.match.path}/reviews`}
+                render={(props) => <Reviews {...props} />}
+              />
+            </Switch>
+          </Suspense>
+        </div>
       </div>
     );
   }
 }
 
-export default MovieDetailsPage;
+export default withRouter(MovieDetailsPage);

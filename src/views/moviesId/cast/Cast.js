@@ -1,6 +1,7 @@
-import React, { Component } from "react";
-
+import React, { Suspense, Component } from "react";
 import axios from "axios";
+import { withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const siteName = "https://image.tmdb.org/t/p/w500/";
 
@@ -20,19 +21,27 @@ class Cast extends Component {
   }
 
   render() {
-    const castObj = this.state.cast.map(
-      ({ name, id, profile_path, character }) => (
-        <ul key={id}>
-          <img src={`${siteName}${profile_path}`} alt="" width="100" />
-          <li>{name}</li>
-          <p>{character}</p>
+    return (
+      <Suspense fallback={<div>Loading...</div>}>
+        <ul>
+          {this.state.cast.map(({ name, id, profile_path, character }) => (
+            <li key={id} className="cast-menu-item">
+              <img src={`${siteName}${profile_path}`} alt="" width="100" />
+              <p className="cast-menu-name">{name}</p>
+              <p className="cast-menu-character">{character}</p>
+            </li>
+          ))}
         </ul>
-      )
+      </Suspense>
     );
-
-    console.log();
-
-    return <div>{castObj}</div>;
   }
 }
-export default Cast;
+
+Cast.propTypes = {
+  name: PropTypes.string,
+  id: PropTypes.number,
+  profile_path: PropTypes.string,
+  character: PropTypes.string,
+};
+
+export default withRouter(Cast);

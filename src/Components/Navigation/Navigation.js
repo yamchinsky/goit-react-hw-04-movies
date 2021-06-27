@@ -1,27 +1,17 @@
 import React from "react";
-import { NavLink, Redirect, Route, Switch } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import routes from "../../routes";
 
 const Navigation = () => {
   return (
-    <ul>
-      <li>
-        <NavLink
-          exact
-          to={routes.home}
-          className="NavLink"
-          activeClassName="NavLink--active"
-        >
+    <ul className="navigation-menu">
+      <li className="navigation-menu-item">
+        <NavLink exact to={routes.home}>
           Home
         </NavLink>
       </li>
-      <li>
-        <NavLink
-          exact
-          to={routes.movies}
-          className="NavLink"
-          activeClassName="NavLink--active"
-        >
+      <li className="navigation-menu-item">
+        <NavLink exact to={routes.movies}>
           Movies
         </NavLink>
       </li>
